@@ -40,13 +40,12 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/:id", async (req, res) => {
+    app.get("/product-details/:id", async (req, res) => {
       const { id } = req.params;
-      // console.log(id);
       const result = await productsCollection.findOne({
-        _id: new ObjectId(id),
+        _id: id.toString(),
       });
-      res.send(result);
+      res.send({ result });
     });
 
     await client.db("admin").command({ ping: 1 });
