@@ -29,9 +29,9 @@ async function run() {
     const db = client.db("smart_db");
     const productsCollection = db.collection("products");
 
-    app.post("/new", async (req, res) => {
-      const newUser = req.body;
-      const result = await productsCollection.insertOne(newUser);
+    app.post("/create-product", async (req, res) => {
+      const newProduct = req.body;
+      const result = await productsCollection.insertOne(newProduct);
       res.send(result);
     });
 
