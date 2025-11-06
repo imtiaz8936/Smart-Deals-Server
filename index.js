@@ -35,7 +35,7 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/", async (req, res) => {
+    app.get("/all-products", async (req, res) => {
       const result = await productsCollection.find().toArray();
       res.send(result);
     });
