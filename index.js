@@ -40,6 +40,15 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/recent-products", async (req, res) => {
+      const result = await productsCollection
+        .find()
+        .sort({ created_at: -1 })
+        .limit(6)
+        .toArray();
+      res.send(result);
+    });
+
     app.get("/product-details/:id", async (req, res) => {
       const { id } = req.params;
       const result = await productsCollection.findOne({
