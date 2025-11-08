@@ -28,6 +28,7 @@ async function run() {
 
     const db = client.db("smart_db");
     const productsCollection = db.collection("products");
+    const bidsCollection = db.collection("products_bids");
 
     app.post("/create-product", async (req, res) => {
       const newProduct = req.body;
@@ -55,6 +56,23 @@ async function run() {
         _id: id.toString(),
       });
       res.send({ result });
+    });
+
+    //bids related apis
+
+    app.get("/all-bids", async (req, res) => {
+      const result = await bidsCollection.find().toArray();
+      res.send(result);
+    });
+
+    app.get("/my-bids", async (req, res) => {
+      const email = req.query.email;
+      const query = {};
+      if (email) {
+        query.buyer_email = email;
+      }
+      const result = await bidsCollection.find(query).toArray();
+      res.send(result);
     });
 
     await client.db("admin").command({ ping: 1 });
